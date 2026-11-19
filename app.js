@@ -143,16 +143,50 @@ function renderHobbies() {
 }
 
 function renderInterests() {
-  const map = document.querySelector("[data-mind-map]");
-  map.innerHTML = `
-    <div class="map-center">${SITE_DATA.interests.center}</div>
-    ${SITE_DATA.interests.branches.map((branch) => `
-      <section class="map-branch" data-color="${branch.color}">
-        <h3>${branch.title}</h3>
-        <ul>${branch.items.map((item) => `<li>${item}</li>`).join("")}</ul>
-      </section>`).join("")}`;
+  const { introduction, themes } = SITE_DATA.research;
+  const introductionText = typeof introduction === "string" ? introduction : introduction.description;
+  const introductionHeadline = typeof introduction === "object" ? introduction.headline : "";
+  document.querySelector("[data-research-introduction]").textContent = introductionText;
+  if (introductionHeadline) {
+    document.querySelector(".page-heading h1").textContent = introductionHeadline;
+  }
+  document.querySelector("[data-research-themes]").innerHTML = themes.map((theme, index) => `
+    <article class="research-theme" data-theme="${theme.id}">
+      <p class="theme-number">Theme 0${index + 1}</p>
+      <h3>${theme.title}</h3>
+      <p class="theme-description">${theme.description}</p>
+      <ul class="theme-topics">${theme.topics.map((topic) => `<li>${topic}</li>`).join("")}</ul>
+      <a class="theme-link" href="#directions-${theme.id}">Explore directions</a>
+    </article>`).join("");
 
-  document.querySelector("[data-articles]").innerHTML = SITE_DATA.articles.map(ideaCard).join("");
+  document.querySelector("[data-research-directions]").innerHTML = themes.map((theme) => `
+    <section class="direction-theme" id="directions-${theme.id}" aria-labelledby="heading-${theme.id}">
+      <h3 id="heading-${theme.id}">${theme.title}</h3>
+      <div class="direction-list">
+        ${theme.directions.map((direction) => `
+          <article class="research-direction">
+            <div class="direction-meta">
+              <span class="direction-status" data-status="${direction.status.toLowerCase()}">${direction.status.charAt(0).toUpperCase()}${direction.status.slice(1)}</span>
+              <span>${direction.type}</span>
+            </div>
+            <h4>${direction.title}</h4>
+            <p class="direction-subtitle">${direction.subtitle}</p>
+            <p class="direction-overview">${direction.overview}</p>
+            <details>
+              <summary>Read research outline</summary>
+              <div class="direction-details">
+                <h5>Motivation</h5>
+                <p>${direction.motivation}</p>
+                <h5>Research questions</h5>
+                <ul>${direction.researchQuestions.map((question) => `<li>${question}</li>`).join("")}</ul>
+                <h5>Potential approaches</h5>
+                <ul>${direction.potentialApproaches.map((approach) => `<li>${approach}</li>`).join("")}</ul>
+                ${direction.evaluation ? `<h5>Evaluation considerations</h5><p>${direction.evaluation}</p>` : ""}
+              </div>
+            </details>
+          </article>`).join("")}
+      </div>
+    </section>`).join("");
 }
 
 function ideaCard(article) {
@@ -191,10 +225,13 @@ function projectCard(project) {
     <article class="project-card">
       <p class="project-status">${project.status}</p>
       <h3>${project.title}</h3>
-      ${hasAdvisor ? `<p class="project-advisor">Advisor: ${project.advisor}</p>` : ""}
-      ${detailContent}
-      <div class="tags">${project.tags.map((tag) => `<span class="tag">${tag}</span>`).join("")}</div>
       ${links ? `<div class="project-links">${links}</div>` : ""}
+      <details class="project-details">
+        <summary>View description</summary>
+        ${hasAdvisor ? `<p class="project-advisor">Advisor: ${project.advisor}</p>` : ""}
+        ${detailContent}
+        <div class="tags">${project.tags.map((tag) => `<span class="tag">${tag}</span>`).join("")}</div>
+      </details>
     </article>`;
 }
 

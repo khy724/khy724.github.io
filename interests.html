@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Exploratory research directions in knowledge graphs, retrieval, grounded LLMs, and reliable agents.">
-  <title>Your Name | Research Ideas</title>
+  <meta name="description" content="Research themes and selected directions in structured knowledge, evidence-centric retrieval, and reliable agentic systems.">
+  <title>Your Name | Research Agenda</title>
   <link rel="stylesheet" href="styles.css">
   <script src="site-data.js" defer></script>
   <script src="app.js" defer></script>
@@ -14,17 +14,22 @@
   <main id="main-content">
     <header class="page-heading">
       <div class="shell reveal">
-        <p class="eyebrow">Proposed · Exploratory · Work in progress</p>
-        <h1>Research directions & active questions.</h1>
-        <p class="lede">Technical proposals and questions I am exploring. These are research directions, not claims of completed work.</p>
+        <p class="eyebrow">Research agenda</p>
+        <h1>Reliable language-model systems.</h1>
+        <p class="lede" data-research-introduction></p>
       </div>
     </header>
     <section class="shell page-content">
-      <div class="mind-map" data-mind-map aria-label="Mind map of current interests"></div>
-      <hr class="section-rule">
-      <p class="eyebrow">Research directions</p>
-      <h2>Problems worth investigating</h2>
-      <div class="article-grid" data-articles></div>
+      <section class="research-section" aria-labelledby="research-themes-heading">
+        <p class="eyebrow">Connected areas</p>
+        <h2 id="research-themes-heading">Research themes</h2>
+        <div class="research-themes" data-research-themes></div>
+      </section>
+      <section class="research-section directions-section" aria-labelledby="research-directions-heading">
+        <p class="eyebrow">Questions and possibilities</p>
+        <h2 id="research-directions-heading">Selected research directions</h2>
+        <div class="research-directions" data-research-directions></div>
+      </section>
     </section>
   </main>
   <div data-site-footer></div>

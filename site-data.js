@@ -8,7 +8,7 @@ const SITE_DATA = {
     photoAlt: "Portrait of Khyati Patel",
     headline: "Building grounded, reliable AI systems through retrieval, structured knowledge, and agentic workflows.",
     intro:
-      "I build knowledge- and agent-based AI systems for enterprise workflows. My interests span information retrieval, knowledge representation, NLP, and reliable LLM systems.",
+      "I build knowledge and agent-based AI systems for enterprise workflows. My interests span information retrieval, knowledge representation, NLP, and reliable LLM systems.",
     shortBio:
       "I graduated with a B.Tech in Computer Science and Engineering from IIT Bombay, where I worked on visual question answering and knowledge-graph-related research. I now focus on knowledge graphs, retrieval, and agents at Microsoft.",
     availability: "Building grounded, reliable AI",
@@ -22,33 +22,229 @@ const SITE_DATA = {
     label: "Resume",
     url: "https://docs.google.com/document/d/1mmK2zbnLlCFXpFgWPD7ORSC6HDejtQzCzG8UPpVO4Tc/edit?usp=sharing"
   },
-  researchInterests: [
-  {
-    title: "Knowledge Graphs & Representation Learning",
-    description:
-      "Learning relational representations for incomplete knowledge graphs, understanding their expressiveness, and studying how structural patterns support reasoning."
+  "research": {
+    "introduction": {
+      "headline": "Research directions & active questions",
+      "description": "My research interests lie at the intersection of natural language processing, information retrieval, knowledge representation, and agentic systems. I am interested in how language models can represent and update knowledge, ground their conclusions in external evidence, and reason and act reliably as information and constraints change."
+    },
+    "themes": [
+      {
+        "id": "knowledge-representation",
+        "title": "Knowledge Representation and Structured Memory",
+        "description": "How can AI systems represent, update, and reason over knowledge that is relational, incomplete, and constantly changing? This theme explores knowledge graphs and structured memory as ways to preserve relationships, context, and the evolution of information beyond isolated text or conversations.",
+        "whyItMatters": "Language models can retrieve or generate information without necessarily maintaining a consistent understanding of how facts relate, change, or contradict one another. Structured representations offer a way to make this knowledge more explicit and updateable.",
+        "topics": [
+          "Knowledge graph completion and relational representation learning",
+          "Temporal knowledge graphs",
+          "Structured memory for long-horizon systems",
+          "Knowledge representation and updating",
+          "Provenance and temporal validity"
+        ],
+        "directions": [
+          {
+            "id": "relational-representations",
+            "title": "Relational Representations for Knowledge Graph Completion",
+            "subtitle": "What can different representation families express, and where do their assumptions matter?",
+            "overview": "My prior research explored graph-aware and language-model-based approaches to knowledge graph completion. This direction also examines how different representation-learning approaches encode relationships and predict missing facts.",
+            "motivation": "Knowledge graphs represent entities and their relationships, but are often incomplete. Predicting missing relations requires models capable of capturing different patterns, such as symmetry, inversion, composition, and hierarchy. Different embedding geometries make different assumptions about which patterns they can represent.",
+            "whyItMatters": "Understanding the expressive capabilities and limitations of relational representations helps determine which models are appropriate for different knowledge structures and where additional textual or external evidence may be necessary.",
+            "researchQuestions": [
+              "How do geometric and algebraic assumptions shape the relational patterns a model can represent?",
+              "When does graph structure provide enough information to predict a missing fact?",
+              "How do relation patterns, entity cardinalities, and incomplete labels affect model performance?"
+            ],
+            "potentialApproaches": [
+              "Compare translation-based, rotational, multiplicative, complex-valued, and geometric representation families.",
+              "Study relation patterns, entity alignment, and the effects of treating unknown triples as negatives.",
+              "Examine the trade-offs between structural expressiveness and generalization."
+            ],
+            "evaluation": "Use established link-prediction benchmarks and filtered ranking measures, examining performance across relation patterns and data incompleteness.",
+            "status": "completed",
+            "statusLabel": "Prior research experience",
+            "type": "Prior research experience"
+          },
+          {
+            "id": "temporal-decision-knowledge",
+            "title": "Knowledge Graphs for Evolving Decisions",
+            "subtitle": "Can a knowledge graph preserve not only decisions, but their revisions and supporting evidence?",
+            "overview": "Exploring temporal knowledge representations for decisions, commitments, disagreements, and status changes distributed across multiple conversations.",
+            "motivation": "Meeting assistants typically produce summaries of individual conversations. However, organizational knowledge evolves across discussions: decisions are revised, responsibilities change, and commitments may remain unresolved. Static summaries often fail to preserve these relationships over time.",
+            "whyItMatters": "A system that can track how and why decisions evolve could support more reliable organizational memory, cross-meeting question answering, and retrieval of the evidence behind past decisions.",
+            "researchQuestions": [
+              "How should a system distinguish a decision from a suggestion, revision, or superseded commitment?",
+              "How can it preserve temporal validity and source evidence as organizational knowledge changes?",
+              "How should disagreements and conflicting accounts be represented?",
+              "Can an evolving graph improve retrieval of unresolved commitments and historical decisions?"
+            ],
+            "potentialApproaches": [
+              "Model decisions, actors, commitments, dependencies, and status transitions as time-aware relationships.",
+              "Retain links to original source passages and represent uncertainty rather than collapsing conflicting accounts.",
+              "Explore cross-meeting retrieval over evolving graph representations."
+            ],
+            "evaluation": "Consider extraction quality, temporal consistency, provenance coverage, update correctness, and cross-meeting question answering.",
+            "status": "proposed",
+            "statusLabel": "Proposed",
+            "type": "Proposed research direction"
+          },
+          {
+            "id": "structured-long-horizon-memory",
+            "title": "Structured Memory for Long-Horizon Language-Model Systems",
+            "subtitle": "What memory representations support updates, contradiction handling, and traceable recall?",
+            "overview": "A proposed investigation of explicit, updateable memory representations for language-model systems operating across long-running interactions.",
+            "motivation": "Retrieval over growing conversation histories can surface related passages without resolving whether information is current, contradictory, or supported by a reliable source. Long-horizon tasks require systems to maintain and update knowledge rather than repeatedly reconstructing it from transcripts.",
+            "whyItMatters": "Better memory representations could help AI assistants maintain continuity across sessions, distinguish persistent knowledge from temporary context, and avoid relying on outdated or contradictory information.",
+            "researchQuestions": [
+              "When does structured memory improve recall or updating compared with transcript retrieval?",
+              "How should a system represent provenance, confidence, temporal validity, and superseded information?",
+              "How can memory systems reconcile new information with previously established knowledge?"
+            ],
+            "potentialApproaches": [
+              "Explore representations combining entities, relations, events, timestamps, confidence, and source links.",
+              "Distinguish persistent knowledge from episodic context.",
+              "Investigate memory consolidation and updates across multiple sessions."
+            ],
+            "evaluation": "Consider multi-session tasks testing factual recall, contradiction resolution, knowledge updates, evidence traceability, and end-to-end task success.",
+            "status": "proposed",
+            "statusLabel": "Proposed",
+            "type": "Proposed research direction"
+          }
+        ]
+      },
+      {
+        "id": "evidence-retrieval",
+        "title": "Evidence-Centric Retrieval and Reasoning",
+        "description": "How can AI systems find and connect sufficient evidence to answer complex questions? This theme explores information retrieval, knowledge graph-based indexing, and evidence composition for questions whose answers depend on relationships distributed across multiple sources.",
+        "whyItMatters": "Retrieving a passage that is semantically similar to a question does not necessarily provide enough information to answer it. Reliable systems must identify connected evidence, preserve its sources, and ensure that conclusions are supported by what was retrieved.",
+        "topics": [
+          "Retrieval-augmented generation",
+          "Knowledge graph-based retrieval",
+          "Multi-hop question answering",
+          "Evidence composition and ranking",
+          "Provenance, grounding, and verification",
+          "Limits of structural inference"
+        ],
+        "directions": [
+          {
+            "id": "graph-evidence-composition",
+            "title": "Knowledge Graphs as Indexes for Evidence Composition",
+            "subtitle": "Can graph structure help retrieve connected evidence across documents?",
+            "overview": "A technical exploration of provenance-linked graph structures as navigational indexes for multi-hop question answering, where multiple pieces of evidence must be connected to establish an answer.",
+            "motivation": "A passage can be relevant to a question without containing enough evidence to answer it. The supporting facts may be distributed across different sources and connected through entities or relationships that conventional semantic retrieval may not capture.",
+            "whyItMatters": "Connecting evidence across documents can improve answers to complex questions while making it possible to trace each conclusion back to its original source.",
+            "researchQuestions": [
+              "When does graph-guided retrieval improve evidence-path recall over semantic retrieval alone?",
+              "How should systems rank, verify, and cite evidence paths involving uncertain extracted relationships?",
+              "How do traversal depth and path length affect retrieval quality and answer groundedness?"
+            ],
+            "potentialApproaches": [
+              "Explore entity and relation extraction, entity resolution, constrained graph traversal, and evidence-path ranking.",
+              "Treat the graph as an index over original documents rather than a replacement for the source evidence.",
+              "Preserve provenance links for source verification and evidence-grounded generation."
+            ],
+            "evaluation": "Assess graph construction quality, evidence-path retrieval, provenance coverage, answer groundedness, and whether cited sources actually support generated answers.",
+            "status": "exploring",
+            "statusLabel": "Technical and literature exploration",
+            "type": "Technical and literature exploration"
+          },
+          {
+            "id": "structural-inference-boundaries",
+            "title": "Understanding the Limits of Structural Inference",
+            "subtitle": "Which missing facts can graph structure support, and when is external evidence necessary?",
+            "overview": "A literature and technical exploration of the boundary between topology-based knowledge graph completion and text-dependent reasoning.",
+            "motivation": "Knowledge graph completion models learn patterns from existing entities and relationships. These patterns can support some predictions, but contextual or event-specific facts may require information that is absent from the graph itself.",
+            "whyItMatters": "Understanding when structural inference is insufficient helps determine when an AI system should rely on external documents and evidence instead of making predictions from learned graph patterns alone.",
+            "researchQuestions": [
+              "How can evaluation distinguish structurally inferable relations from those requiring textual evidence?",
+              "When do retrieval-augmented approaches complement or exceed structural models?",
+              "How do candidate recall and evidence availability constrain text-dependent completion?"
+            ],
+            "potentialApproaches": [
+              "Compare structural embedding methods with text-enhanced and retrieval-augmented approaches.",
+              "Explore approaches such as KG-BERT, KGT5, IR4KGC, ReSKGC, and KG-FiD.",
+              "Analyze evidence availability and candidate recall alongside link-prediction outcomes."
+            ],
+            "evaluation": "Examine performance on structurally inferable versus text-dependent relations, candidate recall, evidence availability, and the contribution of retrieved information.",
+            "status": "exploring",
+            "statusLabel": "Literature and technical exploration",
+            "type": "Literature and technical exploration"
+          }
+        ]
+      },
+      {
+        "id": "reliable-agents",
+        "title": "Reliable Agentic Systems",
+        "description": "How can language-model agents interpret changing environments and execute complex workflows reliably? This theme explores the interaction between model-driven reasoning, tool use, explicit workflow state, and controlled execution.",
+        "whyItMatters": "Agents increasingly interact with external tools and systems rather than simply generating text. Unexpected observations, changing constraints, and consequential actions make reliability, recovery, and execution control essential.",
+        "topics": [
+          "Tool-using language-model agents",
+          "Reflection at decision boundaries",
+          "Multi-agent architectures",
+          "Workflow orchestration and execution control",
+          "Reliability, evaluation, and recovery"
+        ],
+        "directions": [
+          {
+            "id": "reflection-decision-boundaries",
+            "title": "Reflection at Decision Boundaries in Tool-Using Agents",
+            "subtitle": "When is explicit mid-execution reasoning useful, and what should trigger it?",
+            "overview": "A technical exploration of reflection mechanisms that help agents reconcile tool observations, constraints, and planned actions during execution.",
+            "motivation": "A plan formed before tool use may become stale when observations reveal new constraints, unexpected outcomes, or unresolved uncertainty. Continuing execution without reconsidering the plan can lead to inconsistent or premature actions.",
+            "whyItMatters": "Selective reflection could make tool-using agents more robust without incurring the latency and inference cost of repeatedly reasoning at every execution step.",
+            "researchQuestions": [
+              "Which execution events warrant reflection rather than routine step-by-step reasoning?",
+              "Under what conditions do structured reflection mechanisms improve task reliability enough to justify their cost?",
+              "Does reflection at decision boundaries outperform continuous or unstructured reasoning?"
+            ],
+            "potentialApproaches": [
+              "Compare reflection at consequential or unexpected decision points with continuous or unstructured reasoning.",
+              "Investigate triggers involving unexpected tool outputs, policy interactions, missing information, and opportunities for recovery.",
+              "Study tool-use tasks for recovery, consistency, and unnecessary execution overhead."
+            ],
+            "evaluation": "Compare task success, recovery behavior, action consistency, latency, additional model usage, and tool-call overhead.",
+            "status": "exploring",
+            "statusLabel": "Technical and experimental exploration",
+            "type": "Technical exploration"
+          },
+          {
+            "id": "controlled-enterprise-workflows",
+            "title": "Controlled Execution in Decision-Heavy Workflows",
+            "subtitle": "How should flexible planning interact with explicit state and execution control?",
+            "overview": "An industry-motivated design exploration of agent architectures for stateful workflows involving dependencies, policies, incomplete information, and consequential tool calls.",
+            "motivation": "An agent may repeatedly interrupt users for clarification or act before reconciling the current state, required information, and workflow constraints. Reliable execution requires more than generating a plausible sequence of actions.",
+            "whyItMatters": "Enterprise agents must be able to complete complex tasks while respecting business rules, execution dependencies, and user authorization. Separating reasoning from execution control may improve reliability without sacrificing flexibility.",
+            "researchQuestions": [
+              "Which workflow decisions should remain model-directed, and which require explicit orchestration?",
+              "How can state reconciliation, validation, and recovery reduce execution errors without making interaction cumbersome?",
+              "How should consequential actions be gated on verified information and required user confirmation?"
+            ],
+            "potentialApproaches": [
+              "Explore planner, orchestrator, and executor roles with explicit workflow state and a persistent task queue.",
+              "Use deterministic orchestration where execution order and dependencies must be guaranteed.",
+              "Gate consequential actions on validated preconditions, policy constraints, and required user confirmation."
+            ],
+            "evaluation": "Examine task completion, workflow-order violations, tool errors, recovery success, unnecessary user interruptions, and consistency across repeated trials.",
+            "status": "exploring",
+            "statusLabel": "Industry design exploration",
+            "type": "Industry-motivated design exploration"
+          }
+        ]
+      }
+    ]
   },
-  {
-    title: "Information Retrieval & Evidence Grounding",
-    description:
-      "Exploring hybrid retrieval, graph-based evidence indexing, and provenance-aware multi-hop retrieval for questions requiring evidence across documents."
-  },
-  {
-    title: "LLM Reasoning & Agentic Systems",
-    description:
-      "Investigating how explicit reasoning, state reconciliation, and reflection at decision boundaries improve the reliability of tool-using agents."
-  },
-  {
-    title: "Knowledge-Intensive NLP",
-    description:
-      "Combining language models with structured knowledge and external evidence to support grounded reasoning, knowledge completion, and question answering."
-  },
-  {
-    title: "Evaluation & System Reliability",
-    description:
-      "Developing evaluation approaches that diagnose failures across reasoning, retrieval, graph construction, evidence composition, and end-to-end execution."
-  }
-],
+  "researchInterests": [
+    {
+      "title": "Knowledge Representation and Structured Memory",
+      "description": "Knowledge graph completion, relational representation learning, and temporal memory representations for systems that need to maintain and reason over evolving knowledge."
+    },
+    {
+      "title": "Evidence-Centric Retrieval and Reasoning",
+      "description": "Information retrieval, retrieval-augmented generation, and knowledge graph-based evidence composition for grounded multi-hop question answering."
+    },
+    {
+      "title": "Reliable Agentic Systems",
+      "description": "Tool-using language-model agents, selective reflection, multi-agent architectures, and controlled workflow execution for reliable task completion."
+    }
+  ],
   hobbies: [
     {
       icon: "palette",
